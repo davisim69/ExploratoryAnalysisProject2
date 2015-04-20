@@ -23,7 +23,7 @@ SCC <- readRDS(paste(getwd(),"/data/","Source_Classification_Code.rds",sep = "")
 setwd("./data")
 dir()
 
-#Question 1: Have total pm25 emissions increased in USA as a whole from 1999 to 2008
+#Question 1: Have total pm25 emissions decreased in USA as a whole from 1999 to 2008
 #Load dplyr package
 library(dplyr)
 #Group by year
