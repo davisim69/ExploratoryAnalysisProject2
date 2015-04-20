@@ -23,7 +23,7 @@ SCC <- readRDS(paste(getwd(),"/data/","Source_Classification_Code.rds",sep = "")
 setwd("./data")
 dir()
 
-#Question 1: Have total pm25 emissions increased in USA as a whole from 1999 to 2008
+#Question 2: Have total pm25 emissions decreased in Baltimore City from 1999 to 2008
 #Load dplyr package
 library(dplyr)
 #Select Maryland (fips=="24510")
