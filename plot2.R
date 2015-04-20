@@ -36,5 +36,5 @@ NEIyear<-summarise(NEI1,EmissionsTot=sum(Emissions))
 NEIyear<-mutate(NEIyear,EmissionsTot1 = EmissionsTot / 1000)
 #Output plot
 png(file = "../plot2.png")
-with(NEIyear,barplot(EmissionsTot1, col = "blue", main="Total PM2.5 emissions in Maryland 1999-2008", names.arg=year, xlab="Year", ylab="PM2.5 emissions (thousands of tons)"))
+with(NEIyear,barplot(EmissionsTot1, col = "blue", main="Total PM2.5 emissions in Baltimore City 1999-2008", names.arg=year, xlab="Year", ylab="PM2.5 emissions (thousands of tons)"))
 dev.off()
