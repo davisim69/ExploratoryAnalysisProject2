@@ -26,15 +26,17 @@ dir()
 #Question 2: Have total pm25 emissions decreased in Baltimore City from 1999 to 2008
 #Load dplyr package
 library(dplyr)
+
 #Select Maryland (fips=="24510")
 NEI1<-filter(NEI,fips=="24510")
+
 #Group by year
 NEI1<-group_by(NEI1,year)
+
 #Summarise emissions by year
 NEIyear<-summarise(NEI1,EmissionsTot=sum(Emissions))
-#Scale emmissions for plot
-NEIyear<-mutate(NEIyear,EmissionsTot1 = EmissionsTot / 1000)
+
 #Output plot
 png(file = "../plot2.png")
-with(NEIyear,barplot(EmissionsTot1, col = "blue", main="Total PM2.5 emissions in Baltimore City 1999-2008", names.arg=year, xlab="Year", ylab="PM2.5 emissions (thousands of tons)"))
+with(NEIyear,barplot(EmissionsTot, col = "blue", main="Total PM2.5 emissions in Baltimore City 1999-2008", names.arg=year, xlab="Year", ylab="PM2.5 emissions (tons)"))
 dev.off()

@@ -41,10 +41,13 @@ NEI1<-group_by(NEI1,year,type)
 NEIyear<-summarise(NEI1,EmissionsTot=sum(Emissions))
 #Scale emmissions for plot
 NEIyear<-mutate(NEIyear,EmissionsTot1 = EmissionsTot / 1000)
+
 #Output plot
+h<-ggplot(NEIyear,aes(as.character(year),EmissionsTot1)) + 
+  geom_bar(stat="identity", fill="blue") +
+  labs(title = "Total PM2.5 emissions from coal related sources in USA 1999 - 2008") +
+  labs(x = "Year") +
+  labs(y = "Total PM2.5 emissions (thousands of tons)")
 png(file = "../plot4.png")
-h<-ggplot(NEIyear,aes(as.character(year),EmissionsTot1)) + geom_bar(stat="identity", fill="blue")
-h + labs(title = "Total PM2.5 emissions from coal related sources in USA 1999 - 2008") +
-    labs(x = "Year") +
-    labs(y = "Total PM2.5 emissions (thousands of tons")
+print(h)
 dev.off()

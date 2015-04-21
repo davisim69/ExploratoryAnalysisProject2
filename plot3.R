@@ -27,18 +27,24 @@ dir()
 #Load dplyr and ggplot2 packages
 library(dplyr)
 library(ggplot2)
+
 #Select Baltimore City (fips=="24510")
 NEI1<-filter(NEI,fips=="24510")
+
 #Group by year and source of emission 
 NEI1<-group_by(NEI1,year,type)
+
 #Summarise emissions by year and emission source
 NEIyear<-summarise(NEI1,EmissionsTot=sum(Emissions))
-#Scale emmissions for plot
-NEIyear<-mutate(NEIyear,EmissionsTot1 = EmissionsTot / 1000)
+
 #Output plot
+
+h<-ggplot(NEIyear,aes(as.character(year),EmissionsTot)) + 
+  facet_grid(.~type) + 
+  geom_bar(stat="identity", fill="blue") + 
+  labs(title = "Total PM2.5 emissions in Baltimore City 1999 - 2008") +
+  labs(x = "Year") +
+  labs(y = "Total PM2.5 emissions (tons)")
 png(file = "../plot3.png")
-h<-ggplot(NEIyear,aes(as.character(year),EmissionsTot1)) + facet_grid(.~type) + geom_bar(stat="identity", fill="blue")
-h + labs(title = "Total PM2.5 emissions in Baltimore City 1999 - 2008") +
-    labs(x = "Year") +
-    labs(y = "Total PM2.5 emissions (thousands of tons")
+print(h)
 dev.off()
