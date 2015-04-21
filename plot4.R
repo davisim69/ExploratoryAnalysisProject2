@@ -28,13 +28,13 @@ dir()
 library(dplyr)
 library(ggplot2)
 
-#Identify coal combustio related activities in SCC data frame
+#Identify coal combustion related activities in SCC data frame
+#Include coke and charcoal as coal by-products
 coal<-filter(SCC,grepl("[Cc]oal|[Cc]oke", Short.Name))
 
-#Merge coal combustion related sources with NEI data frame to select
+#subset NEI data frame using selected coal combustion related SCC codes from SCC data frame
+NEI1<-NEI[NEI$SCC %in% coal$SCC,]
 
-#Select Baltimore City (fips=="24510")
-NEI1<-filter(NEI,fips=="24510")
 #Group by year and source of emission 
 NEI1<-group_by(NEI1,year,type)
 #Summarise emissions by year and emission source
@@ -42,9 +42,9 @@ NEIyear<-summarise(NEI1,EmissionsTot=sum(Emissions))
 #Scale emmissions for plot
 NEIyear<-mutate(NEIyear,EmissionsTot1 = EmissionsTot / 1000)
 #Output plot
-png(file = "../plot3.png")
-h<-ggplot(NEIyear,aes(as.character(year),EmissionsTot1)) + facet_grid(.~type) + geom_bar(stat="identity", fill="blue")
-h + labs(title = "Total PM2.5 emissions in Baltimore City 1999 - 2008") +
+png(file = "../plot4.png")
+h<-ggplot(NEIyear,aes(as.character(year),EmissionsTot1)) + geom_bar(stat="identity", fill="blue")
+h + labs(title = "Total PM2.5 emissions from coal related sources in USA 1999 - 2008") +
     labs(x = "Year") +
     labs(y = "Total PM2.5 emissions (thousands of tons")
 dev.off()
